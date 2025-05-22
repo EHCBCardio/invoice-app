@@ -1,51 +1,92 @@
 body {
   font-family: Arial, sans-serif;
-  margin: 0 auto;
+  margin: 20px auto;
   max-width: 800px;
-  padding: 20px;
-  background: #f9f9f9;
+  background: #fff;
+  color: #333;
 }
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 20px;
 }
 header .logo {
   max-height: 80px;
 }
-header .address {
+.company-address {
   text-align: right;
   font-size: 0.9em;
+  line-height: 1.3;
 }
-section {
-  margin-top: 20px;
-  padding-top: 10px;
-  border-top: 1px solid #ddd;
+.invoice-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
-.config div,
-.items,
-.export {
+.invoice-info .left textarea {
+  width: 100%;
+  height: 80px;
+  resize: none;
+}
+.invoice-info .right {
+  text-align: right;
+}
+.invoice-info .right div {
+  margin-bottom: 6px;
+}
+.invoice-info label {
+  font-weight: bold;
+  font-size: 0.9em;
+}
+.invoice-info input {
+  width: 120px;
+}
+.items table {
+  width: 100%;
+  border-collapse: collapse;
   margin-bottom: 10px;
 }
-#customerInput,
-select,
-input {
+.items th, .items td {
+  border: 1px solid #ccc;
   padding: 6px;
-  margin-right: 6px;
+  text-align: left;
+  font-size: 0.9em;
 }
-button {
-  padding: 6px 12px;
+.items th { background: #f0f0f0; }
+.items input {
+  width: 100%;
+  box-sizing: border-box;
 }
-.item-row {
+#addRow {
+  margin-bottom: 20px;
+}
+.totals {
+  width: 100%;
+  max-width: 400px;
+  margin-left: auto;
+  font-size: 0.9em;
+}
+.totals > div {
   display: flex;
-  gap: 8px;
-  margin-bottom: 8px;
-}
-.item-row select,
-.item-row input {
-  flex: 1;
-  padding: 4px;
-}
-.archive div {
+  justify-content: space-between;
   margin-bottom: 6px;
+}
+.totals input, .totals select {
+  width: 80px;
+  text-align: right;
+}
+.grand-total {
+  font-weight: bold;
+  font-size: 1.1em;
+  border-top: 1px solid #999;
+  padding-top: 8px;
+}
+.actions {
+  text-align: center;
+  margin-top: 20px;
+}
+.actions button {
+  padding: 8px 16px;
+  font-size: 1em;
 }

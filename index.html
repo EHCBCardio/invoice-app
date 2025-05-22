@@ -9,47 +9,83 @@
 </head>
 <body>
   <header>
-    <img src="logo.png" alt="Noël Guyaz Logo" class="logo">
-    <div class="address">
-      <strong>Noël Guyaz</strong><br>
+    <img src="logo.png" alt="Logo Noël Guyaz" class="logo">
+    <div class="company-address">
+      Noël Guyaz<br>
       Bellacherstrasse 4a<br>
       2545 Selzach<br>
       IBAN: CH31 0631 3429 3319 6450 0
     </div>
   </header>
 
-  <section class="config">
-    <div>
-      <label>Kunde/Firma:</label><br>
-      <input id="customerInput" placeholder="Name oder Firma">
-      <select id="customerSelect"></select>
-      <button id="exportCustomers">Export Kunden</button>
+  <section class="invoice-info">
+    <div class="left">
+      <label for="customerAddress">Kunde / Firma:</label><br>
+      <textarea id="customerAddress" placeholder="EHC Biel Spirit AG&#10;Frau Anita Rohrer&#10;Bahnhofstrasse 17. Postfach&#10;2501 Biel-Bienne"></textarea>
     </div>
-    <div>
-      <label>Rabatt (CHF):</label>
-      <input type="number" id="rabattInput" value="0" step="0.05">
-      <label>MWST (%):</label>
-      <select id="mwstSelect">
-        <option value="0">0%</option>
-        <option value="2.5">2.5%</option>
-        <option value="7.7" selected>7.7%</option>
-      </select>
+    <div class="right">
+      <div>
+        <label for="customerNr">Kunden-Nr.:</label>
+        <input type="text" id="customerNr" value="P-00001">
+      </div>
+      <div>
+        <label for="invoiceDate">Datum:</label>
+        <input type="date" id="invoiceDate">
+      </div>
+      <div>
+        <label for="dueDate">Fällig:</label>
+        <input type="date" id="dueDate">
+      </div>
+      <div>
+        <label for="invoiceNr">Rechnung Nr.:</label>
+        <input type="text" id="invoiceNr">
+      </div>
     </div>
   </section>
 
   <section class="items">
-    <h3>Artikel</h3>
-    <div id="itemsContainer"></div>
-    <button id="addItem">+ Artikel hinzufügen</button>
+    <table id="itemsTable">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Artikel-Nr.</th>
+          <th>Beschreibung</th>
+          <th>Anzahl</th>
+          <th>Preis (CHF)</th>
+          <th>Total (CHF)</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <button id="addRow">+ Artikel hinzufügen</button>
   </section>
 
-  <section class="export">
+  <section class="totals">
+    <div>
+      <label>Zwischensumme:</label>
+      <span id="subtotal">0.00</span> CHF
+    </div>
+    <div>
+      <label for="discount">Rabatt:</label>
+      <input type="number" id="discount" value="0" step="0.01"> CHF
+    </div>
+    <div>
+      <label for="vat">MWST (%):</label>
+      <select id="vat">
+        <option>0</option>
+        <option>2.5</option>
+        <option selected>7.7</option>
+      </select>
+      <span id="vatAmount">0.00</span> CHF
+    </div>
+    <div class="grand-total">
+      <label>Total:</label>
+      <span id="grandTotal">0.00</span> CHF
+    </div>
+  </section>
+
+  <section class="actions">
     <button id="generatePDF">PDF erstellen</button>
-  </section>
-
-  <section class="archive">
-    <h3>Rechnungsarchiv</h3>
-    <div id="archivList"></div>
   </section>
 </body>
 </html>

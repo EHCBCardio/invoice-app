@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8"/>
+  <title>NG72 Rechnungs-App</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="Noël Guyaz Logo" class="logo">
+    <div class="address">
+      <strong>Noël Guyaz</strong><br>
+      Bellacherstrasse 4a<br>
+      2545 Selzach<br>
+      IBAN: CH31 0631 3429 3319 6450 0
+    </div>
+  </header>
+
+  <section class="config">
+    <div>
+      <label>Kunde/Firma:</label><br>
+      <input id="customerInput" placeholder="Name oder Firma">
+      <select id="customerSelect"></select>
+      <button id="exportCustomers">Export Kunden</button>
+    </div>
+    <div>
+      <label>Rabatt (CHF):</label>
+      <input type="number" id="rabattInput" value="0" step="0.05">
+      <label>MWST (%):</label>
+      <select id="mwstSelect">
+        <option value="0">0%</option>
+        <option value="2.5">2.5%</option>
+        <option value="7.7" selected>7.7%</option>
+      </select>
+    </div>
+  </section>
+
+  <section class="items">
+    <h3>Artikel</h3>
+    <div id="itemsContainer"></div>
+    <button id="addItem">+ Artikel hinzufügen</button>
+  </section>
+
+  <section class="export">
+    <button id="generatePDF">PDF erstellen</button>
+  </section>
+
+  <section class="archive">
+    <h3>Rechnungsarchiv</h3>
+    <div id="archivList"></div>
+  </section>
+</body>
+</html>

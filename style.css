@@ -1,33 +1,42 @@
-body { font-family: Arial, sans-serif; margin:20px; max-width:800px; }
-header { position: relative; height: 120px; margin-bottom:20px; }
-.invoice-meta { position: absolute; top: 0; left: 0; }
-.invoice-meta div { margin-bottom:8px; }
+body { font-family: Arial, sans-serif; margin:20px auto; max-width:800px; }
+header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:20px; }
+.header-left { display:flex; }
+.logo { max-height:60px; }
+.invoice-meta { margin-left:20px; }
+.invoice-meta div { margin-bottom:6px; }
 .invoice-meta label { font-weight:bold; display:inline-block; width:80px; }
-.invoice-meta input { width:120px; }
-.recipient-address { position: absolute; top: 20px; right: 40px; width: 250px; height: 80px; }
-.recipient-address textarea { width: 100%; height: 100%; resize: none; box-sizing: border-box; }
+.invoice-meta input { width:100px; }
+.header-right { text-align:right; width:260px; }
+.abs-right { font-size:8px; text-decoration:underline; margin-bottom:4px; }
+.header-right textarea { width:100%; height:70px; resize:none; box-sizing:border-box; font-size:0.9em; }
 
+/* Items table */
 .items table { width:100%; border-collapse:collapse; margin-bottom:10px; }
 .items th, .items td { border:1px solid #ccc; padding:6px; font-size:0.9em; }
 .items th { background:#f0f0f0; }
 /* Column widths */
 .items th:nth-child(1), .items td:nth-child(1) { width:5%; }
-.items th:nth-child(2), .items td:nth-child(2) { width:15%; }
-.items th:nth-child(3), .items td:nth-child(3) { width:40%; }
-.items th:nth-child(4), .items td:nth-child(4) { width:10%; }
-.items th:nth-child(5), .items td:nth-child(5) { width:15%; }
-.items th:nth-child(6), .items td:nth-child(6) { width:15%; }
-
+.items th:nth-child(2), .items td:nth-child(2) { width:8%; }
+.items th:nth-child(3), .items td:nth-child(3) { width:60%; }
+.items th:nth-child(4), .items td:nth-child(4) { width:8%; }
+.items th:nth-child(5), .items td:nth-child(5) { width:10%; }
+.items th:nth-child(6), .items td:nth-child(6) { width:9%; }
 .items input { width:100%; box-sizing:border-box; }
+
 #addRow { margin-bottom:20px; }
+
 .totals { width:50%; margin-left:auto; margin-bottom:20px; }
 .totals div { display:flex; justify-content:space-between; margin-bottom:6px; }
 .totals label { width:80px; }
+
 .totals .grand { font-weight:bold; border-top:1px solid #999; padding-top:6px; }
+
 .message p { margin-bottom:20px; }
+
 .footer { display:flex; justify-content:space-between; margin-bottom:20px; }
-.footer .signature { width:48%; }
-.footer .payment { width:48%; text-align:right; }
+.footer .signature { font-size:0.9em; }
+.footer .iban { margin-top:8px; font-size:8px; }
 .footer .payment img { width:100px; height:100px; }
+
 .actions { text-align:center; }
 .actions button { padding:8px 16px; font-size:1em; }

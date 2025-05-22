@@ -7,14 +7,21 @@
 </head>
 <body>
   <header>
-    <div class="invoice-meta">
-      <div><label>Kunden-Nr.:</label><input type="text" id="customerNr" value="P-00001"></div>
-      <div><label>Datum:</label><input type="date" id="invoiceDate"></div>
-      <div><label>Fällig:</label><input type="date" id="dueDate"></div>
-      <div><label>Rechnung:</label><input type="text" id="invoiceNr"></div>
+    <div class="header-left">
+      <img src="logo.png" class="logo" alt="Logo Noël Guyaz">
+      <div class="invoice-meta">
+        <div><label>Kunden-Nr.:</label><input type="text" id="customerNr" value="P-00001"></div>
+        <div><label>Datum:</label><input type="date" id="invoiceDate"></div>
+        <div><label>Fällig:</label><input type="date" id="dueDate"></div>
+        <div><label>Rechnung:</label><input type="text" id="invoiceNr"></div>
+      </div>
     </div>
-    <div class="recipient-address">
-      <textarea id="customerAddress" placeholder="EHC Biel Spirit AG&#10;Frau Anita Rohrer&#10;Bahnhofstrasse 17. Postfach&#10;2501 Biel-Bienne"></textarea>
+    <div class="header-right">
+      <p class="abs-right">Abs. Noël Guyaz</p>
+      <textarea id="customerAddress">EHC Biel Spirit AG
+Frau Anita Rohrer
+Bahnhofstrasse 17. Postfach
+2501 Biel-Bienne</textarea>
     </div>
   </header>
 
@@ -23,7 +30,7 @@
       <thead>
         <tr>
           <th>#</th>
-          <th>Artikel-Nr.</th>
+          <th>Art.-Nr.</th>
           <th>Beschreibung</th>
           <th>Anzahl</th>
           <th>Preis (CHF)</th>
@@ -38,7 +45,6 @@
   <section class="totals">
     <div><span>Zwischensumme:</span><span id="subtotal">0.00</span> CHF</div>
     <div><label>Rabatt:</label><input type="number" id="discount" value="0" step="0.01"> CHF</div>
-    <div><label>MWST (%):</label><select id="vat"><option>0</option><option>2.5</option><option selected>7.7</option></select><span id="vatAmount">0.00</span> CHF</div>
     <div class="grand"><span>Total:</span><span id="grandTotal">0.00</span> CHF</div>
   </section>
 
@@ -50,11 +56,10 @@
     <div class="signature">
       <p>Freundliche Grüsse</p>
       <p>Noël Guyaz</p>
+      <p class="iban">IBAN: CH31 0631 3429 3319 6450 0</p>
     </div>
     <div class="payment">
       <img src="qr.png" alt="QR Code">
-      <p>IBAN: CH31 0631 3429 3319 6450 0</p>
-      <p>Abs. Noël Guyaz, Bellacherstrasse 4a, 2545 Selzach</p>
     </div>
   </section>
 

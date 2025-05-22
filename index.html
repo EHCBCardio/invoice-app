@@ -1,23 +1,57 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8"/>
+  <meta charset="UTF-8">
   <title>NG72 Rechnungs-App</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    body { font-family: Arial,sans-serif; margin:20px auto; max-width:800px; }
+    header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:20px; }
+    .header-left { display:flex; }
+    .logo { max-height:60px; }
+    .invoice-meta { margin-left:20px; }
+    .invoice-meta div { margin-bottom:6px; }
+    .invoice-meta label { font-weight:bold; width:80px; display:inline-block; }
+    .invoice-meta input { width:100px; }
+    .header-right { text-align:right; width:260px; }
+    .abs-right { font-size:8px; text-decoration:underline; margin-bottom:4px; }
+    .header-right textarea { width:100%; height:80px; resize:none; box-sizing:border-box; font-size:0.9em; }
+    .items table { width:100%; border-collapse:collapse; margin-bottom:10px; }
+    .items th, .items td { border:1px solid #ccc; padding:6px; font-size:0.9em; }
+    .items th { background:#f0f0f0; }
+    .items th:nth-child(1), .items td:nth-child(1) { width:5%; }
+    .items th:nth-child(2), .items td:nth-child(2) { width:8%; }
+    .items th:nth-child(3), .items td:nth-child(3) { width:60%; }
+    .items th:nth-child(4), .items td:nth-child(4) { width:8%; }
+    .items th:nth-child(5), .items td:nth-child(5) { width:10%; }
+    .items th:nth-child(6), .items td:nth-child(6) { width:9%; }
+    .items input { width:100%; box-sizing:border-box; }
+    #addRow { margin-bottom:20px; }
+    .totals { width:50%; margin-left:auto; margin-bottom:20px; }
+    .totals div { display:flex; justify-content:space-between; margin-bottom:6px; }
+    .totals label { width:80px; }
+    .totals .grand { font-weight:bold; border-top:1px solid #999; padding-top:6px; }
+    .message p { margin-bottom:20px; }
+    .footer { display:flex; justify-content:space-between; margin-bottom:20px; }
+    .signature { font-size:0.9em; }
+    .iban { margin-top:8px; font-size:10px; }
+    .payment img { width:100px; height:100px; }
+    .actions { text-align:center; }
+    .actions button { padding:8px 16px; font-size:1em; }
+  </style>
 </head>
 <body>
   <header>
     <div class="header-left">
       <img src="logo.png" class="logo" alt="Logo Noël Guyaz">
       <div class="invoice-meta">
-        <div><label>Kunden-Nr.:</label><input type="text" id="customerNr" value="P-00001"></div>
-        <div><label>Datum:</label><input type="date" id="invoiceDate"></div>
-        <div><label>Fällig:</label><input type="date" id="dueDate"></div>
-        <div><label>Rechnung:</label><input type="text" id="invoiceNr"></div>
+        <div><label>Kunden-Nr.:</label><input id="customerNr" type="text" value="P-00001"></div>
+        <div><label>Datum:</label><input id="invoiceDate" type="date"></div>
+        <div><label>Fällig:</label><input id="dueDate" type="date"></div>
+        <div><label>Rechnung:</label><input id="invoiceNr" type="text"></div>
       </div>
     </div>
     <div class="header-right">
-      <p class="abs-right">Abs. Noël Guyaz</p>
+      <p class="abs-right">Abs. Noël Guyaz, Bellacherstrasse 4a, 2545 Selzach</p>
       <textarea id="customerAddress">EHC Biel Spirit AG
 Frau Anita Rohrer
 Bahnhofstrasse 17. Postfach
@@ -27,25 +61,18 @@ Bahnhofstrasse 17. Postfach
 
   <section class="items">
     <table id="itemsTable">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Art.-Nr.</th>
-          <th>Beschreibung</th>
-          <th>Anzahl</th>
-          <th>Preis (CHF)</th>
-          <th>Total (CHF)</th>
-        </tr>
-      </thead>
+      <thead><tr>
+        <th>#</th><th>Art.-Nr.</th><th>Beschreibung</th><th>Anzahl</th><th>Preis</th><th>Total</th>
+      </tr></thead>
       <tbody></tbody>
     </table>
     <button id="addRow">+ Artikel hinzufügen</button>
   </section>
 
   <section class="totals">
-    <div><span>Zwischensumme:</span><span id="subtotal">0.00</span> CHF</div>
-    <div><label>Rabatt:</label><input type="number" id="discount" value="0" step="0.01"> CHF</div>
-    <div class="grand"><span>Total:</span><span id="grandTotal">0.00</span> CHF</div>
+    <div><label>Zwischensumme:</label><span id="subtotal">0.00</span> CHF</div>
+    <div><label>Rabatt:</label><input id="discount" type="number" value="0" step="0.01"> CHF</div>
+    <div class="grand"><label>Total:</label><span id="grandTotal">0.00</span> CHF</div>
   </section>
 
   <section class="message">
@@ -67,7 +94,7 @@ Bahnhofstrasse 17. Postfach
     <button id="generatePDF">PDF erstellen</button>
   </section>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+  <script src="script.js" defer></script>
 </body>
 </html>

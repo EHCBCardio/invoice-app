@@ -29,6 +29,6 @@ header { display:flex; justify-content:space-between; align-items:flex-start; ma
 .footer { display:flex; justify-content:space-between; margin-bottom:20px; }
 .signature { font-size:0.9em; }
 .iban { margin-top:8px; font-size:10px; }
-.payment img { width:100px; height:100px; }
+.payment img { width:120px; height:120px; }
 .actions { text-align:center; }
 .actions button { padding:8px 16px; font-size:1em; }

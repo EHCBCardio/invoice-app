@@ -3,90 +3,59 @@
 <head>
   <meta charset="UTF-8"/>
   <title>NG72 Rechnungs-App</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin:20px auto; max-width:800px; background:#fff; color:#333; }
-    header { display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; }
-    .logo { max-height:80px; }
-    .company-address { text-align:right; font-size:0.9em; line-height:1.3; }
-    .invoice-info { display:flex; justify-content:space-between; margin-bottom:20px; }
-    .invoice-info textarea { width:100%; height:80px; resize:none; }
-    .invoice-info .right { text-align:right; }
-    .invoice-info label { font-weight:bold; font-size:0.9em; }
-    .invoice-info input, .invoice-info select { width:120px; margin-bottom:6px; }
-    .items table { width:100%; border-collapse:collapse; margin-bottom:10px; }
-    .items th, .items td { border:1px solid #ccc; padding:6px; font-size:0.9em; }
-    .items th { background:#f0f0f0; }
-    .items input { width:100%; box-sizing:border-box; }
-    #addRow { margin-bottom:20px; }
-    .totals { max-width:400px; margin-left:auto; font-size:0.9em; }
-    .totals div { display:flex; justify-content:space-between; margin-bottom:6px; }
-    .totals input, .totals select { width:80px; text-align:right; }
-    .grand-total { font-weight:bold; font-size:1.1em; border-top:1px solid #999; padding-top:8px; }
-    .actions { text-align:center; margin-top:20px; }
-    .actions button { padding:8px 16px; font-size:1em; }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
-    <img src="logo.png" class="logo" alt="Logo">
-    <div class="company-address">
-      Noël Guyaz<br>
-      Bellacherstrasse 4a<br>
-      2545 Selzach<br>
-      IBAN: CH31 0631 3429 3319 6450 0
+    <div class="left-header">
+      <label>Kunde / Firma:</label>
+      <textarea id="customerAddress">EHC Biel Spirit AG
+Frau Anita Rohrer
+Bahnhofstrasse 17. Postfach
+2501 Biel-Bienne</textarea>
+    </div>
+    <div class="right-header">
+      <div><label>Kunden-Nr.:</label><input type="text" id="customerNr" value="P-00001"></div>
+      <div><label>Datum:</label><input type="date" id="invoiceDate"></div>
+      <div><label>Fällig:</label><input type="date" id="dueDate"></div>
+      <div><label>Rechnung:</label><input type="text" id="invoiceNr"></div>
     </div>
   </header>
-  <section class="invoice-info">
-    <div>
-      <label for="customerAddress">Kunde / Firma:</label><br>
-      <textarea id="customerAddress" placeholder="EHC Biel Spirit AG&#10;Frau Anita Rohrer&#10;Bahnhofstrasse 17. Postfach&#10;2501 Biel-Bienne"></textarea>
-    </div>
-    <div class="right">
-      <label for="customerNr">Kunden-Nr.:</label><br>
-      <input id="customerNr" type="text" value="P-00001"><br>
-      <label for="invoiceDate">Datum:</label><br>
-      <input id="invoiceDate" type="date"><br>
-      <label for="dueDate">Fällig:</label><br>
-      <input id="dueDate" type="date"><br>
-      <label for="invoiceNr">Rechnung Nr.:</label><br>
-      <input id="invoiceNr" type="text"><br>
-    </div>
-  </section>
   <section class="items">
     <table id="itemsTable">
-      <thead><tr><th>#</th><th>Art.-Nr.</th><th>Beschreibung</th><th>Anzahl</th><th>Preis</th><th>Total</th></tr></thead>
+      <thead>
+        <tr>
+          <th>#</th><th>Artikel-Nr.</th><th>Beschreibung</th><th>Anzahl</th><th>Preis (CHF)</th><th>Total (CHF)</th>
+        </tr>
+      </thead>
       <tbody></tbody>
     </table>
     <button id="addRow">+ Artikel hinzufügen</button>
   </section>
   <section class="totals">
     <div><span>Zwischensumme:</span><span id="subtotal">0.00</span> CHF</div>
-    <div><label for="discount">Rabatt:</label><input id="discount" type="number" value="0" step="0.01"> CHF</div>
-    <div><label for="vat">MWST (%):</label><select id="vat"><option>0</option><option>2.5</option><option selected>7.7</option></select><span id="vatAmount">0.00</span> CHF</div>
-    <div class="grand-total"><span>Total:</span><span id="grandTotal">0.00</span> CHF</div>
+    <div><label>Rabatt:</label><input type="number" id="discount" value="0" step="0.01"> CHF</div>
+    <div><label>MWST (%):</label><select id="vat"><option>0</option><option>2.5</option><option selected>7.7</option></select><span id="vatAmount">0.00</span> CHF</div>
+    <div class="grand"><span>Total:</span><span id="grandTotal">0.00</span> CHF</div>
+  </section>
+  <section class="message">
+    <p>Bitte begleichen Sie den Betrag innerhalb der angegebenen Frist. Besten Dank.</p>
+  </section>
+  <section class="footer">
+    <div class="signature">
+      <p>Freundliche Grüsse</p>
+      <p>Noël Guyaz</p>
+    </div>
+    <div class="payment">
+      <img src="qr.png" alt="QR Code">
+      <p>IBAN: CH31 0631 3429 3319 6450 0</p>
+      <p>Abs. Noël Guyaz, Bellacherstrasse 4a, 2545 Selzach</p>
+    </div>
   </section>
   <section class="actions">
     <button id="generatePDF">PDF erstellen</button>
   </section>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded",()=>{
-      const tbody=document.querySelector("#itemsTable tbody"), addRowBtn=document.getElementById("addRow"),
-        subtotalEl=document.getElementById("subtotal"), discountEl=document.getElementById("discount"),
-        vatEl=document.getElementById("vat"), vatAmtEl=document.getElementById("vatAmount"),
-        grandEl=document.getElementById("grandTotal"), genBtn=document.getElementById("generatePDF");
-      function createRow(){const tr=document.createElement("tr");tr.innerHTML=`
-        <td class="idx"></td>
-        <td><input class="no" placeholder="A-00001"></td>
-        <td><input class="desc" placeholder="Beschreibung"></td>
-        <td><input type="number" class="qty" value="1" min="1"></td>
-        <td><input type="number" class="price" value="0.00" step="0.01"></td>
-        <td class="line">0.00</td>`;tr.querySelectorAll(".qty,.price").forEach(i=>i.addEventListener("input",update));return tr;}
-      function refreshIdx(){tbody.querySelectorAll("tr").forEach((r,i)=>r.querySelector(".idx").textContent=i+1);}
-      function update(){let s=0;tbody.querySelectorAll("tr").forEach(r=>{const q=parseFloat(r.querySelector(".qty").value)||0,p=parseFloat(r.querySelector(".price").value)||0,l=q*p;r.querySelector(".line").textContent=l.toFixed(2);s+=l;});subtotalEl.textContent=s.toFixed(2);const d=parseFloat(discountEl.value)||0,m=parseFloat(vatEl.value)||0,vat=(s-d)*m/100;vatAmtEl.textContent=vat.toFixed(2);grandEl.textContent=(s-d+vat).toFixed(2);}
-      addRowBtn.addEventListener("click",()=>{tbody.appendChild(createRow());refreshIdx();update();});
-      tbody.appendChild(createRow());refreshIdx();update();discountEl.addEventListener("input",update);vatEl.addEventListener("change",update);
-      genBtn.addEventListener("click",()=>{const{jsPDF}=window.jspdf,doc=new jsPDF(),xL=40,xR=350;let y=40;doc.addImage("logo.png","PNG",xL,y,100,40);doc.setFontSize(10);doc.text(doc.splitTextToSize(document.getElementById("customerAddress").value,180),xL,y+60);doc.text([`Kunden-Nr.: ${document.getElementById("customerNr").value}`,`Datum: ${document.getElementById("invoiceDate").value}`,`Fällig: ${document.getElementById("dueDate").value}`,`Rechnung: ${document.getElementById("invoiceNr").value}`],xR,y+2);y+=120;doc.setFontSize(11).setFont("helvetica","bold");["#", "Art.-Nr.","Beschreibung","Anzahl","Preis","Total"].forEach((h,i)=>doc.text(h,xL+i*80,y));doc.setLineWidth(0.5);doc.line(xL,y+2,xL+480,y+2);doc.setFont("helvetica","normal");tbody.querySelectorAll("tr").forEach(r=>{y+=20;const c=[r.querySelector(".idx").textContent,r.querySelector(".no").value,r.querySelector(".desc").value,r.querySelector(".qty").value,r.querySelector(".price").value,r.querySelector(".line").textContent];c.forEach((t,i)=>doc.text(String(t),xL+i*80,y));});y+=30;const sX=xL+350;doc.text("Zwischensumme:",sX,y);doc.text(subtotalEl.textContent,sX+100,y,{align:"right"});y+=15;doc.text("Rabatt:",sX,y);doc.text(discountEl.value,sX+100,y,{align:"right"});y+=15;doc.text("MWST ("+vatEl.value+"%):",sX,y);doc.text(vatAmtEl.textContent,sX+100,y,{align:"right"});y+=15;doc.setFont("","
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>

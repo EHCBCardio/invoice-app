@@ -2,224 +2,67 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>NG72 Rechnungs-App</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin:20px auto; max-width:800px; }
-    header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:20px; }
-    .header-left { display:flex; }
-    .logo { max-height:60px; }
-    .invoice-meta { margin-left:20px; }
-    .invoice-meta div { margin-bottom:6px; }
-    .invoice-meta label { font-weight:bold; width:80px; display:inline-block; }
-    .invoice-meta input { width:100px; }
-    .header-right { text-align:right; width:260px; }
-    .abs-right { font-size:8px; text-decoration:underline; margin-bottom:4px; }
-    .header-right textarea { width:100%; height:80px; resize:none; box-sizing:border-box; font-size:0.9em; }
-    .items table { width:100%; border-collapse:collapse; margin-bottom:10px; }
-    .items th, .items td { border:1px solid #ccc; padding:6px; font-size:0.9em; }
-    .items th { background:#f0f0f0; }
-    .items th:nth-child(1), .items td:nth-child(1) { width:5%; }
-    .items th:nth-child(2), .items td:nth-child(2) { width:8%; }
-    .items th:nth-child(3), .items td:nth-child(3) { width:60%; }
-    .items th:nth-child(4), .items td:nth-child(4) { width:8%; }
-    .items th:nth-child(5), .items td:nth-child(5) { width:10%; }
-    .items th:nth-child(6), .items td:nth-child(6) { width:9%; }
-    .items input { width:100%; box-sizing:border-box; text-align:right; }
-    #addRow { margin-bottom:20px; }
-    .totals { width:50%; margin-left:auto; margin-bottom:20px; }
-    .totals div { display:flex; justify-content:space-between; margin-bottom:6px; }
-    .totals label { width:80px; }
-    .totals input { width:100px; text-align:right; }
-    .totals .grand { font-weight:bold; border-top:1px solid #999; padding-top:6px; }
-    .message p { margin-bottom:20px; }
-    .footer { display:flex; justify-content:space-between; margin-bottom:20px; }
-    .signature { font-size:0.9em; }
-    .iban { margin-top:8px; font-size:10px; }
-    .payment img { width:100px; height:100px; }
-    .actions { text-align:center; }
-    .actions button { padding:8px 16px; font-size:1em; }
-  </style>
+  <title>Rechnung Noël Guyaz</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <div class="header-left">
-      <img src="logo.png" class="logo" alt="Logo Noël Guyaz">
-      <div class="invoice-meta">
-        <div><label>Kunden-Nr.:</label><input id="customerNr" type="text" value="P-00001"></div>
-        <div><label>Datum:</label><input id="invoiceDate" type="date"></div>
-        <div><label>Fällig:</label><input id="dueDate" type="date"></div>
-        <div><label>Rechnung:</label><input id="invoiceNr" type="text"></div>
+  <div id="invoice">
+    <header>
+      <div class="header-left">
+        <img src="logo.png" class="logo" alt="Logo Noël Guyaz">
+        <div class="invoice-meta">
+          <div><label>Kunden-Nr.:</label><input id="customerNr" type="text" value="P-00001"></div>
+          <div><label>Datum:</label><input id="invoiceDate" type="date"></div>
+          <div><label>Fällig:</label><input id="dueDate" type="date"></div>
+          <div><label>Rechnung:</label><input id="invoiceNr" type="text" placeholder="YYYY-MM-DD/001"></div>
+        </div>
       </div>
-    </div>
-    <div class="header-right">
-      <p class="abs-right">Abs. Noël Guyaz, Bellacherstrasse 4a, 2545 Selzach</p>
-      <textarea id="customerAddress">EHC Biel Spirit AG
+      <div class="header-right">
+        <p class="abs-right">Abs. Noël Guyaz, Bellacherstrasse 4a, 2545 Selzach</p>
+        <textarea id="customerAddress">EHC Biel Spirit AG
 Frau Anita Rohrer
 Bahnhofstrasse 17. Postfach
 2501 Biel-Bienne</textarea>
-    </div>
-  </header>
+      </div>
+    </header>
 
-  <section class="items">
-    <table id="itemsTable">
-      <thead><tr>
-        <th>#</th><th>Art.-Nr.</th><th>Beschreibung</th><th>Anzahl</th><th>Preis</th><th>Total</th>
-      </tr></thead>
-      <tbody></tbody>
-    </table>
-    <button id="addRow">+ Artikel hinzufügen</button>
-  </section>
+    <section class="items">
+      <table id="itemsTable">
+        <thead><tr>
+          <th>#</th><th>Art.-Nr.</th><th>Beschreibung</th><th>Anzahl</th><th>Preis</th><th>Total</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+      <button id="addRow">+ Artikel hinzufügen</button>
+    </section>
 
-  <section class="totals">
-    <div><label>Zwischensumme:</label><span id="subtotal">0.00</span> CHF</div>
-    <div><label>Rabatt:</label><input id="discount" type="number" value="0" step="0.01"> CHF</div>
-    <div class="grand"><label>Total:</label><span id="grandTotal">0.00</span> CHF</div>
-  </section>
+    <section class="totals">
+      <div><label>Zwischensumme:</label><span id="subtotal">0.00</span> CHF</div>
+      <div><label>Rabatt:</label><input id="discount" type="number" value="0" step="0.01"> CHF</div>
+      <div class="grand"><label>Total:</label><span id="grandTotal">0.00</span> CHF</div>
+    </section>
 
-  <section class="message">
-    <p>Bitte begleichen Sie den Betrag innerhalb der angegebenen Frist. Besten Dank.</p>
-  </section>
+    <section class="message">
+      <p>Bitte begleichen Sie den Betrag innerhalb der angegebenen Frist. Besten Dank.</p>
+    </section>
 
-  <section class="footer">
-    <div class="signature">
-      <p>Freundliche Grüsse</p>
-      <p>Noël Guyaz</p>
-      <p class="iban">IBAN: CH31 0631 3429 3319 6450 0</p>
-    </div>
-    <div class="payment">
-      <img src="qr.png" alt="QR Code">
-    </div>
-  </section>
+    <section class="footer">
+      <div class="signature">
+        <p>Freundliche Grüsse</p>
+        <p>Noël Guyaz</p>
+        <p class="iban">IBAN: CH31 0631 3429 3319 6450 0</p>
+      </div>
+      <div class="payment">
+        <img src="qr.png" alt="QR Code">
+      </div>
+    </section>
+  </div>
 
-  <section class="actions">
-    <button id="generatePDF">PDF erstellen</button>
-  </section>
+  <div class="actions">
+    <button id="generatePDF">Als PDF speichern</button>
+  </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script>
-    console.log("Script geladen");
-    document.addEventListener('DOMContentLoaded', () => {
-      console.log("DOM ready");
-      const tbody = document.querySelector('#itemsTable tbody');
-      const addRowBtn = document.getElementById('addRow');
-      const subtotalEl = document.getElementById('subtotal');
-      const discountEl = document.getElementById('discount');
-      const grandEl = document.getElementById('grandTotal');
-      const genBtn = document.getElementById('generatePDF');
-
-      function createRow() {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td class="idx"></td>
-          <td><input class="item-no" placeholder="A-00001" style="text-align:left;"></td>
-          <td><input class="desc" placeholder="Beschreibung" style="text-align:left;"></td>
-          <td><input type="number" class="qty" value="1" min="1"></td>
-          <td><input type="number" class="price" value="0.00" step="0.01"></td>
-          <td class="line"></td>`;
-        console.log("Row created");
-        tr.querySelectorAll('.qty, .price').forEach(i => i.addEventListener('input', updateTotals));
-        return tr;
-      }
-
-      function refreshIdx() {
-        tbody.querySelectorAll('tr').forEach((tr, i) => tr.querySelector('.idx').textContent = i+1);
-      }
-
-      function updateTotals() {
-        let sum = 0;
-        tbody.querySelectorAll('tr').forEach(tr => {
-          const q = parseFloat(tr.querySelector('.qty').value) || 0;
-          const p = parseFloat(tr.querySelector('.price').value) || 0;
-          const line = q * p;
-          tr.querySelector('.line').textContent = line.toFixed(2);
-          sum += line;
-        });
-        subtotalEl.textContent = sum.toFixed(2);
-        const total = sum - (parseFloat(discountEl.value) || 0);
-        grandEl.textContent = total.toFixed(2);
-      }
-
-      addRowBtn.addEventListener('click', () => {
-        console.log("AddRow clicked");
-        tbody.appendChild(createRow());
-        refreshIdx();
-        updateTotals();
-      });
-
-      tbody.appendChild(createRow());
-      refreshIdx();
-      updateTotals();
-      discountEl.addEventListener('input', updateTotals);
-
-      genBtn.addEventListener('click', () => {
-        console.log("GeneratePDF clicked");
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF({ unit:'pt', format:'a4' });
-        const margin = 40, tableWidth = 520;
-        // Logo
-        doc.addImage('logo.png','PNG', margin, margin, 100, 40);
-        // Meta
-        doc.setFontSize(10);
-        const meta = [
-          'Kunden-Nr.: '+document.getElementById('customerNr').value,
-          'Datum: '+document.getElementById('invoiceDate').value,
-          'Fällig: '+document.getElementById('dueDate').value,
-          'Rechnung: '+document.getElementById('invoiceNr').value
-        ];
-        doc.text(meta, margin+120, margin);
-        // Recipient
-        doc.setFontSize(8);
-        const recX = margin+260, recY = margin;
-        doc.text('Abs. Noël Guyaz, Bellacherstrasse 4a, 2545 Selzach', recX, recY);
-        doc.setLineWidth(0.5);
-        const w = doc.getTextWidth('Abs. Noël Guyaz, Bellacherstrasse 4a, 2545 Selzach');
-        doc.line(recX, recY+2, recX+w, recY+2);
-        doc.setFontSize(10);
-        doc.text(document.getElementById('customerAddress').value.split('\n'), recX, recY+12);
-        // Table header
-        let y = margin+100;
-        doc.setFont('helvetica','bold').setFontSize(11);
-        const headers = ['#','Art.-Nr.','Beschreibung','Anzahl','Preis','Total'];
-        const colPos = [0,0.08,0.18,0.78,0.88,0.97];
-        headers.forEach((h,i)=>doc.text(h, margin+colPos[i]*tableWidth, y));
-        doc.setLineWidth(0.5);
-        doc.line(margin, y+2, margin+tableWidth, y+2);
-        doc.setFont('helvetica','normal');
-        tbody.querySelectorAll('tr').forEach(tr=>{
-          y+=20;
-          [tr.querySelector('.idx').textContent,
-           tr.querySelector('.item-no').value,
-           tr.querySelector('.desc').value,
-           tr.querySelector('.qty').value,
-           tr.querySelector('.price').value,
-           tr.querySelector('.line').textContent
-          ].forEach((v,i)=>doc.text(String(v), margin+colPos[i]*tableWidth, y));
-        });
-        // Totals
-        y+=30;
-        doc.text('Zwischensumme:', margin+colPos[3]*tableWidth, y);
-        doc.text(subtotalEl.textContent, margin+colPos[5]*tableWidth, y, {align:'right'});
-        y+=15;
-        doc.text('Rabatt:', margin+colPos[3]*tableWidth, y);
-        doc.text(discountEl.value, margin+colPos[5]*tableWidth, y, {align:'right'});
-        y+=15;
-        doc.setFont('helvetica','bold');
-        doc.text('Total:', margin+colPos[3]*tableWidth, y);
-        doc.text(grandEl.textContent, margin+colPos[5]*tableWidth, y, {align:'right'});
-        // Message and signature
-        y+=40;
-        doc.setFont('helvetica','normal').setFontSize(10);
-        doc.text('Bitte begleichen Sie den Betrag innerhalb der angegebenen Frist. Besten Dank.', margin, y);
-        y+=40;
-        doc.text('Freundliche Grüsse', margin, y);
-        doc.text('Noël Guyaz', margin, y+15);
-        doc.setFontSize(10);
-        doc.text('IBAN: CH31 0631 3429 3319 6450 0', margin, y+35);
-        // QR
-        doc.addImage('qr.png','PNG', recX, recY+60, 80, 80);
-        doc.save('Rechnung_'+document.getElementById('invoiceNr').value+'.pdf');
-      });
-    });
-  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
